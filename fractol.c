@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 03:55:35 by iboutadg          #+#    #+#             */
-/*   Updated: 2023/12/25 20:51:32 by iboutadg         ###   ########.fr       */
+/*   Updated: 2023/12/26 20:34:02 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	julia_converge(double x, double y)
 		z4x = z2x * z2x - (z2y * z2y);
 		z4y = 2 * z2x * z2y;
 		tmp = resx;
-		resx = z4x + ;
-		resy = ;
+		resx = z4x + 0;
+		resy = 0;
 		if (resx > 10000 || resy > 10000)
 			return (i);
 		i++;
@@ -96,7 +96,7 @@ int main(void)
 		j = 0;
 		while (j < 1000)
 		{
-			put_in_pixel(&img, i, j, 0x0 + julia_converge((i - 950) / 5, (j - 500) / 5) * 0x00051020);
+			put_in_pixel(&img, i, j, 0x0 + mandlebort_converge((i - 950) / 400, (j - 500) / 400) * 0x00051020);
 			j++;
 		}
 		i++;
