@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 03:55:35 by iboutadg          #+#    #+#             */
-/*   Updated: 2023/12/26 20:34:02 by iboutadg         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:35:22 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,29 @@ int main(void)
 {	
 	void	*mlx, *mlx_window;
 	t_data	img;
-	double	i, j;
-	int		c;
+	double	i, j, xoff, yoff;
+	int	w, h, zoom;
 
 	mlx = mlx_init();
 	if (!mlx)
 		return (0);
-	mlx_window = mlx_new_window(mlx, 1900, 1000, "fractol");
-	img.img    = mlx_new_image(mlx, 1900, 1000);
+	w = 1900;
+	h = 1000;
+	zoom = 1;
+	mlx_window = mlx_new_window(mlx, w, h, "fractol");
+	img.img    = mlx_new_image(mlx, w, h);
 	img.addr   = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	if (!mlx_window)
 		return (0);
-	i = c = 0;
-	while (i < 1900)
+	i = 0;
+	while (i < w)
 	{
 		j = 0;
-		while (j < 1000)
+		while (j < h)
 		{
-			put_in_pixel(&img, i, j, 0x0 + mandlebort_converge((i - 950) / 400, (j - 500) / 400) * 0x00051020);
+			xoff = w / 2;
+			yoff = h / 2;
+			put_in_pixel(&img, i, j, 0x0 + mandlebort_converge((i - w / 2) / (zoom * 200), (j - h/2) / (zoom * 200)) * 0x00051020);
 			j++;
 		}
 		i++;
