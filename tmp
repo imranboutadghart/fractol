@@ -1,0 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/17 03:55:35 by iboutadg          #+#    #+#             */
+/*   Updated: 2023/12/26 20:34:02 by iboutadg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "mlx.h"
+#include <math.h>
+#include "fractol.h"
+
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
+
+void	put_in_pixel(t_data *img, int x, int y, int c)
+{
+	char	*data;
+	
+	data = img->addr + y * img->line_length + x * (img->bits_per_pixel / 8);
+	*(int *)data = c;
+}
+
+double	convergence(double x, double y, double a, double b)
+{
+	int i;
+	double resx, resy, tmp;
+
+	i = 0;
+	resx = x;
+	resy = y;
+	// f(z) = z2 + C
+	//z2 = (x + yi)2 = x2 - y2 + 2xyi
+	while (i < 100)
+	{
+		tmp = resx;
+		resx = resx * resx - (resy * resy) + a;
+		resy = 2 * tmp * resy + b;
+		if (resx > 10000 || resy > 10000)
+			return (i);
+		i++;
+	}
+	return (5.136898447);
+}
+
+int	close(int keycode, t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+	return (0);
+}
+
+int main(void)
+{	
+	void	*mlx, *mlx_window;
+	t_data	img;
+	double	i, j;
+
+	mlx = mlx_init();
+	if (!mlx)
+		return (0);
+	mlx_window = mlx_new_window(mlx, 1900, 1000, "fractol");
+	img.img    = mlx_new_image(mlx, 1900, 1000);
+	img.addr   = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	if (!mlx_window)
+		return (0);
+	i = 0;
+	while (i < 1900)
+	{
+		j = 0;
+		while (j < 1000)
+		{
+			put_in_pixel(&img, i, j, 0x0 + convergence((i - 950) / 400, (j - 500) / 400, (i - 950) / 400, (j - 500) / 400) * 0x00051020);
+			j++;
+		}
+		i++;
+	}
+	t_vars vars;
+
+	vars.mlx = mlx;
+	vars.win = mlx_window;
+	mlx_put_image_to_window(mlx, mlx_window, img.img, 0, 0);
+	mlx_hook(mlx_window, 2, 1L<<0, close, &vars);	
+	mlx_loop(mlx);
+
+	return (0);
+}

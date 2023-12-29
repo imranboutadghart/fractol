@@ -1,5 +1,5 @@
 CC=cc
-CFLAGS= -Wextra -Wall
+CFLAGS= -Wextra -Wall -g
 NAME=a.out
 SRC:=$(wildcard *.c)
 OBJ:=$(SRC:.c=.o)

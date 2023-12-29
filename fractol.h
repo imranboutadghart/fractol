@@ -13,6 +13,10 @@
 #ifndef FTARCTOL_H
 # define FTARCTOL_H
 
+# include <stdlib.h>
+# include "mlx.h"
+# include <math.h>
+
 typedef struct	s_data {
 	void	*img;
 	char	*addr;
@@ -20,4 +24,17 @@ typedef struct	s_data {
 	int		line_length;
 	int		endian;
 }				t_data;
+
+typedef struct	s_mlx_vars {
+	void	*mlx;
+	void	*win;
+	t_data	img;
+}				t_mlx_vars;
+
+typedef struct	s_vars{
+	int xoff;
+	int yoff;
+	int zoom;
+}				t_vars;
+
 #endif //FRACTOL_H
