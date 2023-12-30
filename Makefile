@@ -1,5 +1,5 @@
 CC=cc
-CFLAGS= -Wextra -Wall -O3 
+CFLAGS= -Wextra -Wall -O3
 NAME=a.out
 SRC:=$(wildcard *.c)
 OBJ:=$(SRC:.c=.o)
@@ -8,8 +8,10 @@ lib=  -lXext -lX11
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ) $(mlx)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(mlx) $(lib)
+fractol.o : fractol.c fractol.h
+	$(CC) $(CFLAGS) -c $< -o $@
 test : $(NAME)
 	./$(NAME)
 clean :
