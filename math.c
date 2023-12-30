@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:28 by iboutadg          #+#    #+#             */
-/*   Updated: 2023/12/30 13:52:34 by iboutadg         ###   ########.fr       */
+/*   Updated: 2023/12/30 17:14:42 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ double	convergence(double x, double y, double a, double b)
 			return (i);
 		i++;
 	}
-	return (5.136898447);
+	return (0);
 }
 
 void	create_img(t_data *img, double xoff, double yoff, int zoom)

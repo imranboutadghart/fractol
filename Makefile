@@ -1,6 +1,6 @@
 CC=cc
 CFLAGS= -Wextra -Wall -O3
-NAME=a.out
+NAME=fractol
 SRC:=$(wildcard *.c)
 OBJ:=$(SRC:.c=.o)
 mlx=$(wildcard *.a)
