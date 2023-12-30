@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:28 by iboutadg          #+#    #+#             */
-/*   Updated: 2023/12/30 12:54:15 by iboutadg         ###   ########.fr       */
+/*   Updated: 2023/12/30 13:52:34 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	create_img(t_data *img, double xoff, double yoff, int zoom)
 		while (j < HEIGHT)
 		{
 			put_in_pixel(img, i, j, 0x0 + \
-				convergence((i - xoff) / zoom, \
-				(j - yoff) / zoom, (i - xoff) / zoom, \
-				(j - yoff) / zoom) * 0x00051020);
+				convergence((i - xoff) / zoom, (j - yoff) / zoom, \
+							(i - xoff) / zoom, (j - yoff) / zoom) \
+							* 0x00051020);
 			j++;
 		}
 		i++;
