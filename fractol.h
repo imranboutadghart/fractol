@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 10:33:06 by iboutadg          #+#    #+#             */
-/*   Updated: 2023/12/30 13:34:47 by iboutadg         ###   ########.fr       */
+/*   Updated: 2023/12/30 20:50:04 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,17 @@ typedef struct s_mlx_vars
 typedef struct s_vars
 {
 	int	xoff;
-	int	yoff;
 	int	zoom;
+	int	yoff;
 }				t_vars;
 
 void	create_img(t_data *img, double xoff, double yoff, int zoom);
 double	convergence(double x, double y, double a, double b);
 void	put_in_pixel(t_data *img, int x, int y, int c);
 int		mouse_hook(int button, int x, int y, t_mlx_vars *v);
-int		close(int keycode, t_mlx_vars *v);
+int		keyhook(int keycode, t_mlx_vars *v);
+int		change_color(t_mlx_vars *v);
+void	shift_color(t_data *img, double i, double j);
+int		close(t_mlx_vars *v);
 
 #endif //FRACTOL_H

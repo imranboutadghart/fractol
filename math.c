@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:28 by iboutadg          #+#    #+#             */
-/*   Updated: 2023/12/30 17:14:42 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/01 00:38:27 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,26 @@ void	create_img(t_data *img, double xoff, double yoff, int zoom)
 		}
 		i++;
 	}
+}
+
+void	shift_color(t_data *img, double i, double j)
+{
+	int		color;
+	int		red;
+	int		green;
+	int		blue;
+	char	*data;
+
+	data = img->addr + (int)j * img->ll + (int)i * (img->bpp / 8);
+	color = *(int *)data;
+	if (0x0 == color)
+		return ;
+	red = (color & 0xFF0000) >> 16;
+	green = (color & 0xFF00) >> 8;
+	blue = (color & 0xFF);
+	red = (red + 1) % 200;
+	green = (green + 2) % 220;
+	blue = (blue + 3) % 240;
+	color = (red << 16) + (green << 8) + blue;
+	*(int *)data = color;
 }

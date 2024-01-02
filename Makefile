@@ -10,7 +10,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ) $(mlx)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(mlx) $(lib)
-fractol.o : fractol.c fractol.h
+%.o : %.c fractol.h
 	$(CC) $(CFLAGS) -c $< -o $@
 test : $(NAME)
 	./$(NAME)
