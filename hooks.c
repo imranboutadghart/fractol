@@ -39,12 +39,14 @@ int close(t_mlx_vars *v)
 	mlx_destroy_window(v->mlx, v->win);
 	mlx_destroy_image(v->mlx, v->img.img);
 	exit(0);
+	return (0);
 }
 
 int	keyhook(int keycode, t_mlx_vars *v)
 {
 	if (113 == keycode || 65307 == keycode)
 		return (close(v));
+	return (0);
 }
 
 int	change_color(t_mlx_vars *v)
