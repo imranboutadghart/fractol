@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 10:33:06 by iboutadg          #+#    #+#             */
-/*   Updated: 2023/12/30 20:50:04 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:22:56 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ typedef struct s_data
 
 typedef struct s_mlx_vars
 {
-	void	*mlx;
-	void	*win;
-	t_data	img;
-	int		xoff;
-	int		yoff;
-	long	zoom;
-}				t_mlx_vars;
+	void		*mlx;
+	void		*win;
+	t_data		img;
+	int			xoff;
+	int			yoff;
+	long long	zoom;
+	int			juliax;
+	int			juliay;
+}			t_mlx_vars;
 
-void	create_img(t_data *img, double xoff, double yoff, long zoom);
+void	create_img(t_mlx_vars *v);
 double	convergence(double x, double y, double a, double b);
 void	put_in_pixel(t_data *img, int x, int y, int c);
 int		mouse_hook(int button, int x, int y, t_mlx_vars *v);

@@ -1,5 +1,5 @@
 CC=cc
-CFLAGS= -Wextra -Wall -O3
+CFLAGS= -Wextra -Wall -O3 
 NAME=fractol
 SRC:=$(wildcard *.c)
 OBJ:=$(SRC:.c=.o)
