@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:25 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/10 19:12:36 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:32:34 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	mouse_hook(int button, int x, int y, t_mlx_vars *v)
 	mlx_put_image_to_window(v->mlx, v->win, (v->img).img, 0, 0), 0);
 }
 
-int	close(t_mlx_vars *v)
+int	finish(t_mlx_vars *v)
 {
 	mlx_destroy_window(v->mlx, v->win);
 	mlx_destroy_image(v->mlx, v->img.img);
@@ -45,7 +45,7 @@ int	close(t_mlx_vars *v)
 int	keyhook(int key, t_mlx_vars *v)
 {
 	if (113 == key || 65307 == key)
-		return (close(v));
+		return (finish(v));
 	if (v->zoom < 2)
 		return (0);
 	else if (UP == key)

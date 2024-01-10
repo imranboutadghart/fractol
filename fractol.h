@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 10:33:06 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/10 19:22:56 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:57:43 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include "mlx.h"
 # include <math.h>
+# include <unistd.h>
 
 # ifndef WIDTH
 #  define WIDTH 1900
@@ -43,14 +44,15 @@ typedef struct s_data
 
 typedef struct s_mlx_vars
 {
+	t_data		img;
 	void		*mlx;
 	void		*win;
-	t_data		img;
+	long long	zoom;
+	double			juliax;
+	double			juliay;
 	int			xoff;
 	int			yoff;
-	long long	zoom;
-	int			juliax;
-	int			juliay;
+	char		j;
 }			t_mlx_vars;
 
 void	create_img(t_mlx_vars *v);
@@ -60,6 +62,8 @@ int		mouse_hook(int button, int x, int y, t_mlx_vars *v);
 int		keyhook(int keycode, t_mlx_vars *v);
 int		change_color(t_mlx_vars *v);
 void	shift_color(t_data *img, double i, double j);
-int		close(t_mlx_vars *v);
+int		finish(t_mlx_vars *v);
+int		ft_strncmp(char *s1, char *s2, size_t n);
+double		ft_atof(char *s);
 
 #endif //FRACTOL_H

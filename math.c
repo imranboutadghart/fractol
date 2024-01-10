@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:28 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/10 19:19:02 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:19:30 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ double	convergence(double x, double y, double a, double b)
 	return (0);
 }
 
-void	create_img(t_mlx_vars *v)
+void	create_img_julia(t_mlx_vars *v)
 {
 	double	i;
 	double	j;
@@ -55,9 +55,38 @@ void	create_img(t_mlx_vars *v)
 		j = 0;
 		while (j < HEIGHT)
 		{
+			put_in_pixel(&(v->img), i, j, \
+			convergence((i - xoff) / zoom, (j - yoff) / zoom\
+			, v->juliax, v->juliay)\
+							* 0x00051020);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	create_img(t_mlx_vars *v)
+{
+	double	i;
+	double	j;
+	long	zoom;
+	double	xoff;
+	double	yoff;
+
+	i = 0;
+	zoom = ZOOM * v->zoom;
+	xoff = v->xoff;
+	yoff = v->yoff;
+	if (v->j)
+		return (create_img_julia(v));
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
 			put_in_pixel(&(v->img), i, j, 0x0 + \
-				convergence((i - xoff) / zoom, (j - yoff) / zoom, \
-							(i - xoff) / zoom, (j - yoff) / zoom) \
+			convergence((i - xoff) / zoom, (j - yoff) / zoom\
+			, (i - xoff) / zoom, (j - yoff) / zoom)\
 							* 0x00051020);
 			j++;
 		}
