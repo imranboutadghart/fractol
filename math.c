@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:28 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/01 00:38:27 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:39:57 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,21 @@ double	convergence(double x, double y, double a, double b)
 		tmp = x;
 		x = x * x - (y * y) + a;
 		y = 2 * tmp * y + b;
-		if (x > 100 || y > 100)
+		if (x > 50 || y > 50)
 			return (i);
 		i++;
 	}
 	return (0);
 }
 
-void	create_img(t_data *img, double xoff, double yoff, int zoom)
+void	create_img(t_data *img, double xoff, double yoff, long zoom)
 {
 	double	i;
 	double	j;
 
 	i = 0;
 	zoom *= ZOOM;
+	printf("%ld\n", zoom);
 	while (i < WIDTH)
 	{
 		j = 0;

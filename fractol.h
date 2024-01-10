@@ -27,6 +27,11 @@
 #  define ZOOM 200
 # endif
 
+# define UP    65362
+# define DOWN  65364
+# define LEFT  65361
+# define RIGHT 65363
+
 typedef struct s_data
 {
 	void	*img;
@@ -41,16 +46,12 @@ typedef struct s_mlx_vars
 	void	*mlx;
 	void	*win;
 	t_data	img;
+	int		xoff;
+	int		yoff;
+	long	zoom;
 }				t_mlx_vars;
 
-typedef struct s_vars
-{
-	int	xoff;
-	int	zoom;
-	int	yoff;
-}				t_vars;
-
-void	create_img(t_data *img, double xoff, double yoff, int zoom);
+void	create_img(t_data *img, double xoff, double yoff, long zoom);
 double	convergence(double x, double y, double a, double b);
 void	put_in_pixel(t_data *img, int x, int y, int c);
 int		mouse_hook(int button, int x, int y, t_mlx_vars *v);

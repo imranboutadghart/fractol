@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:25 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/02 13:24:14 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/10 15:37:31 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,19 @@
 
 int	mouse_hook(int button, int x, int y, t_mlx_vars *v)
 {
-	static int	z = 2;
-	static int	cx = WIDTH / 2;
-	static int	cy = HEIGHT / 2;
-
-	if (1 == button)
+	if (5 == button)
 	{
-		cx += (cx - x);
-		cy += (cy - y);
-		z *= 2;
+		v->xoff += (v->xoff - x);
+		v->yoff += (v->yoff - y);
+		v->zoom *= 2;
 	}
-	else if (3 == button && z > 1)
+	else if (4 == button && v->zoom > 1)
 	{
-		cx = (WIDTH / 2) * (z < 5) + (cx - (cx - x) / 2) * (z >= 5);
-		cy = (HEIGHT / 2) * (z < 5) + (cy - (cy - y) / 2) * (z >= 5);
-		z /= 2;
+		v->xoff = (WIDTH / 2) * (v->zoom < 5) + (v->xoff - (v->xoff - x) / 2) * (v->zoom >= 5);
+		v->yoff = (HEIGHT / 2) * (v->zoom < 5) + (v->yoff - (v->yoff - y) / 2) * (v->zoom >= 5);
+		v->zoom /= 2;
 	}
-	return (create_img(&(v->img), cx, cy, z), \
+	return (create_img(&(v->img), v->xoff, v->yoff, v->zoom), \
 	mlx_put_image_to_window(v->mlx, v->win, (v->img).img, 0, 0), 0);
 }
 
@@ -46,7 +42,18 @@ int	keyhook(int keycode, t_mlx_vars *v)
 {
 	if (113 == keycode || 65307 == keycode)
 		return (close(v));
-	return (0);
+	if (v->zoom < 2)
+		return (0);
+	if (UP == keycode)
+		v->yoff += ZOOM / log(v->zoom);
+	if (DOWN == keycode)
+		v->yoff -= ZOOM / log(v->zoom);
+	if (RIGHT == keycode)
+		v->xoff -= ZOOM / log(v->zoom);
+	if (LEFT == keycode)
+		v->xoff += ZOOM / log(v->zoom);
+	return (create_img(&(v->img), v->xoff, v->yoff, v->zoom), \
+	mlx_put_image_to_window(v->mlx, v->win, (v->img).img, 0, 0), 0);
 }
 
 int	change_color(t_mlx_vars *v)

@@ -4,7 +4,7 @@ NAME=fractol
 SRC:=$(wildcard *.c)
 OBJ:=$(SRC:.c=.o)
 mlx=$(wildcard *.a)
-lib=  -lXext -lX11
+lib=  -lXext -lX11 -lmlx -lm
 
 all : $(NAME)
 
