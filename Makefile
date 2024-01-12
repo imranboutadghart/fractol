@@ -13,7 +13,8 @@ $(NAME) : $(OBJ) $(mlx)
 %.o : %.c fractol.h
 	$(CC) $(CFLAGS) -c $< -o $@
 test : $(NAME)
-	./$(NAME)
+	./$(NAME) $(p1) $(p2) $(p3)
+	make clean
 clean :
 	rm -rf $(OBJ)
 fclean : clean

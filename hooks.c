@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:25 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/10 23:32:34 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:38:13 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	mouse_hook(int button, int x, int y, t_mlx_vars *v)
 {
-	if (5 == button)
+	if (5 == button && 8388600 > v->zoom)
 	{
 		v->xoff += (v->xoff - x);
 		v->yoff += (v->yoff - y);
