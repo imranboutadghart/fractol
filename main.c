@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 23:21:03 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/13 00:05:22 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/13 00:25:43 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ static void	parse_two_args(char **av, t_vars *v)
 
 void	parse_args(int ac, char **av, t_vars *v)
 {
+	static char	s[] = "Usuage:\n./fractol [m]       (mandelbrot)\
+		\n./fractol [b]       (burning ship)\
+		\n./fractol [c]       (cubic mandelbrot)\
+		\n./fractol [j [x y]] (julia with optional starting coordinates)\n";
+
 	if (2 == ac)
 	{
 		parse_two_args(av, v);
@@ -66,8 +71,7 @@ void	parse_args(int ac, char **av, t_vars *v)
 	}
 	else
 	{
-		write(2, "Usuage:\n./fractol [m]\n./fractol [b]\
-			\n./fractol [j [x y]]\n", 60);
+		write(2, s, sizeof(s) * sizeof(char));
 		exit(1);
 	}
 }
