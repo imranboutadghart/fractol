@@ -1,10 +1,9 @@
 CC=cc
-CFLAGS= -Wextra -Wall -g -O3 
-NAME=fractol
-SRC:=$(wildcard *.c)
+CFLAGS= -Wextra -Wall -Werror -O3 
+NAME= fractol
+SRC:= burning.c  hooks.c  julia.c  main.c  mandelbrot.c  utils.c cubic_mandelbrot.c
 OBJ:=$(SRC:.c=.o)
-mlx=$(wildcard *.a)
-lib=  -lXext -lX11 -lmlx -lm
+lib= -lXext -lX11 -lmlx -lm
 
 all : $(NAME)
 

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 03:55:35 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/12 16:56:49 by iboutadg         ###   ########.fr       */
+/*   Created: 2024/01/12 23:21:03 by iboutadg          #+#    #+#             */
+/*   Updated: 2024/01/13 00:05:22 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	mlx_initiate(t_mlx_vars *v)
+int	init(t_vars *v)
 {
 	v->mlx = mlx_init();
 	if (!v->mlx)
@@ -31,46 +31,71 @@ int	mlx_initiate(t_mlx_vars *v)
 	v->xoff = WIDTH / 2;
 	v->yoff = HEIGHT / 2;
 	v->zoom = 2;
+	v->max_iter = MAX_ITER;
 	return (0);
 }
 
-void	get_args(int ac, char **av, t_mlx_vars *v)
+static void	parse_two_args(char **av, t_vars *v)
 {
-	if (2 == ac && ft_strncmp(av[1], "m", 2))
-		v->j = 0;
-	else if (2 == ac && ft_strncmp(av[1], "b", 2))
-		v->j = 2;
-	else if (2 == ac && ft_strncmp(av[1], "j", 2))
+	if (ft_strncmp(av[1], "m", 2))
+		v->t = 0;
+	else if (ft_strncmp(av[1], "j", 2))
 	{
-		v->j = 1;
+		v->t = 1;
 		v->juliax = 0;
 		v->juliay = 0.8;
+		v->max_iter = 10;
+	}
+	else if (ft_strncmp(av[1], "b", 2))
+		v->t = 2;
+	else if (ft_strncmp(av[1], "c", 2))
+		v->t = 3;
+}
+
+void	parse_args(int ac, char **av, t_vars *v)
+{
+	if (2 == ac)
+	{
+		parse_two_args(av, v);
 	}
 	else if (4 == ac && ft_strncmp(av[1], "j", 2))
 	{
-		v->j = 1;
+		v->t = 1;
 		v->juliax = ft_atof(av[2]);
 		v->juliay = ft_atof(av[3]);
 	}
 	else
 	{
-		write(2, "Usuage:\n./fractol [m]\n./fractol [j [x y]]\n", 42);
+		write(2, "Usuage:\n./fractol [m]\n./fractol [b]\
+			\n./fractol [j [x y]]\n", 60);
 		exit(1);
 	}
 }
 
+void	select_set(t_vars *v)
+{
+	if (!v->t)
+		return (create_img_mandelbrot(v));
+	if (1 == v->t)
+		return (create_img_julia(v));
+	if (2 == v->t)
+		return (create_img_burning(v));
+	if (3 == v->t)
+		return (create_img_cubic(v));
+}
+
 int	main(int ac, char **av)
 {
-	t_mlx_vars	v;
+	t_vars	v;
 
-	get_args(ac, av, &v);
-	if (mlx_initiate(&v))
+	parse_args(ac, av, &v);
+	if (init(&v))
 		return (1);
-	create_img(&v);
+	select_set(&v);
 	mlx_key_hook(v.win, keyhook, &v);
-	mlx_mouse_hook(v.win, mouse_hook, &v);
+	mlx_mouse_hook(v.win, mousehook, &v);
 	mlx_loop_hook(v.mlx, change_color, &v);
 	mlx_hook(v.win, 17, 0, finish, &v);
+	mlx_hook(v.win, 6, 1L << 8, julia_mouse, &v);
 	mlx_loop(v.mlx);
-	return (0);
 }
