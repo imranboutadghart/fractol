@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 20:37:28 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/12 15:26:17 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:51:09 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,45 @@ void	put_in_pixel(t_data *img, int x, int y, int c)
 	*(int *)data = c;
 }
 
-double	convergence(double x, double y, double a, double b)
+double	burn_convergence(double x, double y, double a, double b)
 {
 	int		i;
 	double	tmp;
 
 	i = 0;
-	while (i < 100)
+	while (i < 50)
 	{
 		tmp = x;
-		x = x * x - (y * y) + a;
-		y = 2 * tmp * y + b;
-		if (x > 100 || y > 100)
+		x = x * x - y * y + a;
+ 		y = 2 * fabs(tmp * y) + b;
+		if (x > 4 || y > 4)
 			return (i);
 		i++;
 	}
 	return (0);
 }
 
-void	create_img_julia(t_mlx_vars *v)
+double	man_convergence(double x, double y, double a, double b)
+{
+	int		i;
+	double	tmp;
+
+	i = 0;
+	while (i < 50)
+	{
+		tmp = x;
+		x = x * x - (y * y) + a;
+		y = 2 * tmp * y + b;
+		//x = x * x - y * y + a;
+ 		//y = 2 * fabs(tmp * y) + b;
+		if (x > 1000 || y > 1000)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+void	create_img_julia(t_mlx_vars *v, double (*f)(double, double, double, double), int b)
 {
 	double	i;
 	double	j;
@@ -50,19 +70,35 @@ void	create_img_julia(t_mlx_vars *v)
 	zoom = ZOOM * v->zoom;
 	xoff = v->xoff;
 	yoff = v->yoff;
-	while (i < WIDTH)
-	{
-		j = 0;
-		while (j < HEIGHT)
+	if (!b)
+		while (i < WIDTH)
 		{
-			put_in_pixel(&(v->img), i, j, \
-			convergence((i - xoff) / zoom, (j - yoff) / zoom\
-			, v->juliax, v->juliay)\
-							* 0x00051020);
-			j++;
+			j = 0;
+			while (j < HEIGHT)
+			{
+				put_in_pixel(&(v->img), i, j, \
+				f((i - xoff) / zoom, (j - yoff) / zoom\
+				, v->juliax, v->juliay)\
+								* 0x00051020);
+				j++;
+			}
+			i++;
 		}
-		i++;
-	}
+	else
+		while (i < WIDTH)
+		{
+			j = 0;
+			while (j < HEIGHT)
+			{
+				put_in_pixel(&(v->img), i, j, 0x0 + \
+				f((i - xoff) / zoom, (j - yoff) / zoom\
+				, (i - xoff) / zoom, (j - yoff) / zoom)\
+								* 0x00051020);
+				j++;
+			}
+			i++;
+		}
+
 }
 
 void	create_img(t_mlx_vars *v)
@@ -77,15 +113,17 @@ void	create_img(t_mlx_vars *v)
 	zoom = ZOOM * v->zoom;
 	xoff = v->xoff;
 	yoff = v->yoff;
-	if (v->j)
-		return (create_img_julia(v));
+	if (v->j == 1)
+		return (create_img_julia(v, man_convergence, 0));
+	else if (v->j == 2)
+		return (create_img_julia(v, burn_convergence, 1));
 	while (i < WIDTH)
 	{
 		j = 0;
 		while (j < HEIGHT)
 		{
 			put_in_pixel(&(v->img), i, j, 0x0 + \
-			convergence((i - xoff) / zoom, (j - yoff) / zoom\
+			man_convergence((i - xoff) / zoom, (j - yoff) / zoom\
 			, (i - xoff) / zoom, (j - yoff) / zoom)\
 							* 0x00051020);
 			j++;

@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 03:55:35 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/11 00:01:27 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/12 16:56:49 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,17 @@ int	mlx_initiate(t_mlx_vars *v)
 
 void	get_args(int ac, char **av, t_mlx_vars *v)
 {
-	if (2 == ac && ft_strncmp(av[1], "m", 1))
+	if (2 == ac && ft_strncmp(av[1], "m", 2))
 		v->j = 0;
-	else if (2 == ac && ft_strncmp(av[1], "j", 1))
+	else if (2 == ac && ft_strncmp(av[1], "b", 2))
+		v->j = 2;
+	else if (2 == ac && ft_strncmp(av[1], "j", 2))
 	{
 		v->j = 1;
 		v->juliax = 0;
 		v->juliay = 0.8;
 	}
-	else if (4 == ac && ft_strncmp(av[1], "j", 1))
+	else if (4 == ac && ft_strncmp(av[1], "j", 2))
 	{
 		v->j = 1;
 		v->juliax = ft_atof(av[2]);
@@ -61,8 +63,7 @@ int	main(int ac, char **av)
 {
 	t_mlx_vars	v;
 
-	if (ac > 1)
-		get_args(ac, av, &v);
+	get_args(ac, av, &v);
 	if (mlx_initiate(&v))
 		return (1);
 	create_img(&v);
