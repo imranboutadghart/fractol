@@ -6,7 +6,7 @@
 /*   By: iboutadg <iboutadg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 23:21:03 by iboutadg          #+#    #+#             */
-/*   Updated: 2024/01/13 00:25:43 by iboutadg         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:16:49 by iboutadg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,24 @@ int	init(t_vars *v)
 	return (0);
 }
 
-static void	parse_two_args(char **av, t_vars *v)
+static int	parse_two_args(char **av, t_vars *v)
 {
 	if (ft_strncmp(av[1], "m", 2))
 		v->t = 0;
 	else if (ft_strncmp(av[1], "j", 2))
 	{
 		v->t = 1;
-		v->juliax = 0;
-		v->juliay = 0.8;
+		v->juliax = -0.59;
+		v->juliay = 0.54;
 		v->max_iter = 10;
 	}
 	else if (ft_strncmp(av[1], "b", 2))
 		v->t = 2;
 	else if (ft_strncmp(av[1], "c", 2))
 		v->t = 3;
+	else
+		return (1);
+	return (0);
 }
 
 void	parse_args(int ac, char **av, t_vars *v)
@@ -59,10 +62,7 @@ void	parse_args(int ac, char **av, t_vars *v)
 		\n./fractol [c]       (cubic mandelbrot)\
 		\n./fractol [j [x y]] (julia with optional starting coordinates)\n";
 
-	if (2 == ac)
-	{
-		parse_two_args(av, v);
-	}
+	if (2 == ac && !parse_two_args(av, v));
 	else if (4 == ac && ft_strncmp(av[1], "j", 2))
 	{
 		v->t = 1;

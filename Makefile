@@ -7,13 +7,10 @@ lib= -lXext -lX11 -lmlx -lm
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(mlx)
-	$(CC) $(CFLAGS) -o $@ $(OBJ) $(mlx) $(lib)
+$(NAME) : $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $(OBJ) $(lib)
 %.o : %.c fractol.h
 	$(CC) $(CFLAGS) -c $< -o $@
-test : $(NAME)
-	./$(NAME) $(p1) $(p2) $(p3)
-	make clean
 clean :
 	rm -rf $(OBJ)
 fclean : clean
