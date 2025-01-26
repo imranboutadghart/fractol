@@ -47,7 +47,7 @@ void	create_img_julia(t_vars *v)
 			put_in_pixel(&(v->img), i, j, 0x0 + \
 			julia_convergence((i - xoff) / zoom, \
 			(j - yoff) / zoom, v) \
-							* 0x00433221);
+							* 0x00051020);
 			j++;
 		}
 		i++;

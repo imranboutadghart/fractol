@@ -1,10 +1,10 @@
 CC=cc
-CFLAGS= -Wextra -Wall -O3 -Werror -I. 
+CFLAGS= -Wextra -Wall -O3 -I. 
 NAME= fractol
 SRC:= burning.c  hooks.c  julia.c  main.c  mandelbrot.c  utils.c
 SRC:=$(patsubst %, src/%, $(SRC))
 OBJ:=$(patsubst src/%.c, obj/%.o, $(SRC))
-lib= -lXext -lX11 -lmlx -lm
+lib= -lmlx -lXext -lX11 -lm
 
 all : $(NAME)
 

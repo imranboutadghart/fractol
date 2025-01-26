@@ -55,8 +55,8 @@ void	parse_args(int ac, char **av, t_vars *v, int error)
 
 	if (error)
 	{
-		write(2, s, sizeof(s) * sizeof(char));
-		exit(1);
+		;
+		exit(write(2, s, sizeof(s) * sizeof(char)));
 	}
 	if (2 == ac && !parse_two_args(av, v));
 	else if (4 == ac && ft_strncmp(av[1], "j", 2))
@@ -79,8 +79,8 @@ void	select_set(t_vars *v)
 		return (create_img_julia(v));
 	if (BURNINGSHIP == v->t)
 		return (create_img_burning(v));
-	write(2, s, sizeof(s) * sizeof(char));
-	exit(1);
+	;
+	exit(write(2, s, sizeof(s) * sizeof(char)));
 }
 
 int	main(int ac, char **av)

@@ -24,10 +24,9 @@ void	shift_color(t_data *img, double i, double j)
 	red = (color & 0xFF0000) >> 16;
 	green = (color & 0xFF00) >> 8;
 	blue = (color & 0xFF);
-	//values her are just meant to randomize th colors with no meaning really
-	red = (red + (green < 10) * 5) % 255;
-	green = (green + 2) % 235;
-	blue = (blue + 3 * (green < 10)) % 215;
+	red = (red + 1) % 200;
+	green = (green + 2) % 220;
+	blue = (blue + 3) % 240;
 	color = (red << 16) + (green << 8) + blue;
 	*(int *)data = color;
 }

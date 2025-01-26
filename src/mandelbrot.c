@@ -46,7 +46,7 @@ void	create_img_mandelbrot(t_vars *v)
 			put_in_pixel(&(v->img), i, j, 0x0 + \
 			man_convergence((i - xoff) / zoom, \
 			(j - yoff) / zoom, v->max_iter) \
-							* 0x00433221);
+							* 0x00051020);
 			j++;
 		}
 		i++;

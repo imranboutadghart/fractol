@@ -3,7 +3,6 @@
 //this is the function that creates the zoom effect
 //if the zoom is above a certain number it stops because the limits of the computer (in the subject)
 //the math behind it is quite compilcated and i am not willing to explain it in comments
-//but it works and i made the whole thing
 //trust me bro
 int	mousehook(int b, int x, int y, t_vars *v)
 {
