@@ -1,12 +1,16 @@
 CC=cc
-CFLAGS= -Wextra -Wall -O3 -I. 
+CFLAGS= -Wextra -Wall -O3 -I. -Iminilibx-linux
 NAME= fractol
 SRC:= burning.c  hooks.c  julia.c  main.c  mandelbrot.c  utils.c
 SRC:=$(patsubst %, src/%, $(SRC))
 OBJ:=$(patsubst src/%.c, obj/%.o, $(SRC))
-lib= -lmlx -lXext -lX11 -lm
+lib= -Lminilibx-linux -lmlx -lXext -lX11 -lm
+MLX=minilibx-linux/libmlx.a
 
-all : $(NAME)
+all : $(MLX) $(NAME)
+
+$(MLX) :
+	make -C minilibx-linux
 
 $(NAME) : objdir $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(lib)
@@ -23,6 +27,7 @@ clean :
 
 fclean : clean
 	rm -rf $(NAME)
+	make clean -C minilibx-linux
 
 re : fclean $(NAME)
 
